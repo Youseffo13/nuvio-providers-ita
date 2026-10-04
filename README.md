@@ -8,6 +8,7 @@ I provider sono **porting in JavaScript dei plugin CloudStream di [doGior](https
 
 ## ⚠️ Disclaimer / Note legali
 
+- **Questa repository è stata creata con l'aiuto dell'ia.** La repo infatti è stata creata grazie all'aiuto di GLM 5.3 Flash.
 - **Questa repository non ospita alcun file video, audio o sottotitolo.** Contiene solo codice che individua link già pubblicamente accessibili su siti di terze parti.
 - Nessun contenuto è distribuito, archiviato o trasmesso da questa repository o dal suo autore. Il progetto funziona esclusivamente come "motore di ricerca" di link.
 - **Per richieste DMCA/rimozione, rivolgiti ai siti che ospitano effettivamente i contenuti.** Il proprietario di questa repository non ha alcun controllo sui contenuti di terze parti e non può rimuoverli.
@@ -32,7 +33,7 @@ I provider sono **porting in JavaScript dei plugin CloudStream di [doGior](https
 1. Apri **Nuvio → Settings → Plugins**
 2. Incolla questo URL e conferma:
    ```
-   https://raw.githubusercontent.com/<TUO-UTENTE>/<NOME-REPO>/main/manifest.json
+   https://raw.githubusercontent.com/Youseffo13/nuvio-providers-ita/main/manifest.json
    ```
 3. Attiva i provider che vuoi dalla lista
 
