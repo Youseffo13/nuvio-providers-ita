@@ -1,6 +1,6 @@
 /**
  * altadefinizione - Built from src/altadefinizione/
- * Generated: 2026-10-04T18:28:10.333Z
+ * Generated: 2026-10-11T18:43:51.121Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -276,7 +276,7 @@ function resolveEmbedUrl(pageUrl2) {
 }
 
 // src/altadefinizione/index.js
-var DOMAINS = ["https://altadefinizionex.surf"];
+var DOMAINS = ["https://altadefinizionex.surf", "https://altadefinizione.autos"];
 var cachedMainUrl = "";
 function getMainUrl() {
   return __async(this, null, function* () {
@@ -339,9 +339,14 @@ function getStreams(tmdbId, mediaType, season, episode) {
         return [];
       }
       const wantTv = mediaType === "tv";
-      const mainUrl = yield getMainUrl();
-      const results = yield searchSite(mainUrl, details.title);
-      console.log("[AltaDefinizione] Search results: " + results.length);
+      let results = [];
+      try {
+        const mainUrl = yield getMainUrl();
+        results = yield searchSite(mainUrl, details.title);
+        console.log("[AltaDefinizione] Search results: " + results.length);
+      } catch (e) {
+        console.log("[AltaDefinizione] Search unavailable (" + e.message + "), using TMDB fallback");
+      }
       let imdbId = details.imdbId;
       const target = pickBestResult(results, details, wantTv);
       if (target) {

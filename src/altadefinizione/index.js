@@ -20,7 +20,7 @@ import { fetchText, loadHtml, fixUrl, pickBestResult, DEFAULT_HEADERS } from './
 import { fetchTmdbDetails } from './tmdb.js';
 import { extractVixSrc, buildVixSrcPageUrl, VIXSRC_REFERER } from './extractors.js';
 
-const DOMAINS = ['https://altadefinizionex.me', 'https://altadefinizione.autos'];
+const DOMAINS = ['https://altadefinizionex.surf', 'https://altadefinizione.autos'];
 let cachedMainUrl = '';
 
 /** Probe the known domains and cache the first one that responds. */
@@ -41,7 +41,12 @@ async function getMainUrl() {
     return cachedMainUrl;
 }
 
-/** Site search via GET (the old POST do=search now redirects to the homepage). */
+/**
+ * Site search via GET.
+ * NOTE: since the Next.js migration search pages return HTTP 500 outside a
+ * real browser (client rendering + WAF); on failure we return [] and rely on
+ * the TMDB imdb id fallback. Never let a failing search kill getStreams.
+ */
 async function searchSite(mainUrl, query) {
     const url = mainUrl + '/index.php?do=search&subaction=search&story=' + encodeURIComponent(query);
     const html = await fetchText(url);
@@ -90,10 +95,16 @@ async function getStreams(tmdbId, mediaType, season, episode) {
         }
         const wantTv = mediaType === 'tv';
 
-        // 2. Site search + best match
-        const mainUrl = await getMainUrl();
-        const results = await searchSite(mainUrl, details.title);
-        console.log('[AltaDefinizione] Search results: ' + results.length);
+        // 2. Site search + best match (best-effort: the site now serves the
+        //    search to plain HTTP clients with 500/525 errors)
+        let results = [];
+        try {
+            const mainUrl = await getMainUrl();
+            results = await searchSite(mainUrl, details.title);
+            console.log('[AltaDefinizione] Search results: ' + results.length);
+        } catch (e) {
+            console.log('[AltaDefinizione] Search unavailable (' + e.message + '), using TMDB fallback');
+        }
 
         let imdbId = details.imdbId;
         const target = pickBestResult(results, details, wantTv);

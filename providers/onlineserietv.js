@@ -1,6 +1,6 @@
 /**
  * onlineserietv - Built from src/onlineserietv/
- * Generated: 2026-10-04T18:28:10.339Z
+ * Generated: 2026-10-11T18:43:51.130Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;
