@@ -276,7 +276,7 @@ function resolveEmbedUrl(pageUrl2) {
 }
 
 // src/altadefinizione/index.js
-var DOMAINS = ["https://altadefinizionex.me", "https://altadefinizione.autos", "https://altadefinizionex.surf"];
+var DOMAINS = ["https://altadefinizionex.surf"];
 var cachedMainUrl = "";
 function getMainUrl() {
   return __async(this, null, function* () {
